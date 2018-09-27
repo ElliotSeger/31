@@ -42,8 +42,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BasicPlayer.cs" />
+    <Compile Include="Card.cs" />
+    <Compile Include="Game.cs" />
+    <Compile Include="L33tt4rd.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Suit.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
