@@ -70,7 +70,7 @@ namespace TrettioEtt
             int cardValue = card.Value;
             if (card.Suit == BestSuit)
             {
-                cardValue += 3;
+                cardValue += 5;
             }
             return cardValue;
         }

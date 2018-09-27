@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TrettioEtt
 {
-    
+
 
     class Program
     {
@@ -20,16 +20,27 @@ namespace TrettioEtt
 
             players.Add(new L33tt4rd());
             players.Add(new BasicPlayer());
-
+            int[] p = new int[2];
             Console.WriteLine("Vilka två spelare skall mötas?");
-            for (int i = 1; i <= players.Count; i++)
+            for (int i = 0; i < players.Count; i++)
             {
-                Console.WriteLine(i + ": {0}", players[i - 1].Name);
+                Console.WriteLine(i + ": {0}", players[i].Name);
+                do
+                {
+                    while (!int.TryParse(Console.ReadLine(), out p[i]))
+                    {
+                        Console.WriteLine("Felaktig symbol. Du måste ange ett numeriskt värde...");
+                    }
+                    if (p[i] >= players.Count)
+                    {
+                        Console.WriteLine($"Ogiltig spelare angiven {p[1]}. Välj ett värde mellan 0 och {players.Count -1}");
+                    }
+                } while (p[i] >= players.Count);
+                
             }
-            int p1 = int.Parse(Console.ReadLine());
-            int p2 = int.Parse(Console.ReadLine());
-            Player player1 = players[p1 - 1];
-            Player player2 = players[p2 - 1];
+                
+            Player player1 = players[p[0]];
+            Player player2 = players[p[1]];
             player1.Game = game;
             player1.PrintPosition = 0;
             player2.Game = game;
@@ -85,14 +96,14 @@ namespace TrettioEtt
 
     }
 
-    
 
 
-    
 
-    
 
-    
 
-    
+
+
+
+
+
 }
