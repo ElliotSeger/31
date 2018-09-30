@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace TrettioEtt
 {
-
-
     class Program
     {
-
         static void Main(string[] args)
         {
             Console.WindowWidth = 120;
@@ -20,11 +17,17 @@ namespace TrettioEtt
 
             players.Add(new L33tt4rd());
             players.Add(new BasicPlayer());
+            players.Add(new Enemy());
+
             int[] p = new int[2];
             Console.WriteLine("Vilka två spelare skall mötas?");
             for (int i = 0; i < players.Count; i++)
             {
                 Console.WriteLine(i + ": {0}", players[i].Name);
+            }
+
+            for (int i = 0; i < 2; i++)
+            {
                 do
                 {
                     while (!int.TryParse(Console.ReadLine(), out p[i]))
@@ -33,12 +36,11 @@ namespace TrettioEtt
                     }
                     if (p[i] >= players.Count)
                     {
-                        Console.WriteLine($"Ogiltig spelare angiven {p[1]}. Välj ett värde mellan 0 och {players.Count -1}");
+                        Console.WriteLine($"Ogiltig spelare angiven. Välj ett värde mellan 0 och {players.Count - 1}");
                     }
                 } while (p[i] >= players.Count);
-                
             }
-                
+
             Player player1 = players[p[0]];
             Player player2 = players[p[1]];
             player1.Game = game;
@@ -88,22 +90,8 @@ namespace TrettioEtt
                 Console.SetCursorPosition((player2.Wongames * 100 / numberOfGames) + 16, 5);
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.Write(player2.Wongames);
-
             }
             Console.ReadLine();
-
         }
-
     }
-
-
-
-
-
-
-
-
-
-
-
 }

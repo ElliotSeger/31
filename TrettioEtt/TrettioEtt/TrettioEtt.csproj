@@ -45,6 +45,7 @@
     <Compile Include="BasicPlayer.cs" />
     <Compile Include="Card.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="Enemy.cs" />
     <Compile Include="L33tt4rd.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />

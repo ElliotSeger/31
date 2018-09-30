@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 namespace TrettioEtt
 {
 
-    class L33tt4rd : Player  //Döp om denna klass till något unikt, max 14 bokstäver, ändra även i main
+    class Enemy : Player  //Döp om denna klass till något unikt, max 14 bokstäver, ändra även i main
     {
         //Lägg gärna till egna variabler här
 
-        public L33tt4rd() //Skriv samma namn här
+        public Enemy() //Skriv samma namn här
         {
-            Name = "L33tt4rd"; //Skriv in samma namn här
+            Name = "Enemy"; //Skriv in samma namn här
         }
 
         public override bool Knacka(int round) //Returnerar true om spelaren skall knacka, annars false
         {
-            if (Game.Score(this) >= 21)
+            if (Game.Score(this) >= 25)
             {
                 return true;
             }
@@ -47,7 +47,7 @@ namespace TrettioEtt
             Card worstCard = Hand.First();
             for (int i = 1; i < Hand.Count; i++)
             {
-                if (CardValue(Hand[i]) < CardValue(worstCard) && worstCard.Value != 11 )
+                if (CardValue(Hand[i]) < CardValue(worstCard) )
                 {
                     worstCard = Hand[i];
                 }
