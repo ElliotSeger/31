@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TrettioEtt
+namespace TrettioEtt.Players
 {
-    class BasicPlayer : Player //Denna spelare fungerar exakt som L33tt4rd. Ändra gärna i denna för att göra tester.
+    class BasicPlayer : Player // ReferensSpelaren.
     {
 
         public BasicPlayer()

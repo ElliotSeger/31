@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TrettioEtt
+namespace TrettioEtt.Players
 {
 
-    class Enemy : Player  //Döp om denna klass till något unikt, max 14 bokstäver, ändra även i main
+    class Enemy : Player  // Denna spelare är testfiende för att pröva idéer.
     {
         //Lägg gärna till egna variabler här
 
@@ -18,7 +18,7 @@ namespace TrettioEtt
 
         public override bool Knacka(int round) //Returnerar true om spelaren skall knacka, annars false
         {
-            if (Game.Score(this) >= 25)
+            if (Game.Score(this) >= 21)
             {
                 return true;
             }
@@ -30,7 +30,7 @@ namespace TrettioEtt
 
         public override bool TaUppKort(Card card) // Returnerar true om spelaren skall ta upp korten på skräphögen (card), annars false för att dra kort från leken.
         {
-            if (card.Value == 11 || (card.Value == 8 && card.Suit == BestSuit))
+            if (card.Value == 11 || (card.Value >= 8 && card.Suit == BestSuit))
             {
                 return true;
             }
@@ -47,7 +47,7 @@ namespace TrettioEtt
             Card worstCard = Hand.First();
             for (int i = 1; i < Hand.Count; i++)
             {
-                if (CardValue(Hand[i]) < CardValue(worstCard) )
+                if (Hand[i].Value < worstCard.Value) 
                 {
                     worstCard = Hand[i];
                 }

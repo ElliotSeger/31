@@ -4,16 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TrettioEtt
+namespace TrettioEtt.Players
 {
 
-    class L33tt4rd : Player  //Döp om denna klass till något unikt, max 14 bokstäver, ändra även i main
+    class ColouredPlayer : Player  // Denna spelare prioriterar bestSuit
     {
         //Lägg gärna till egna variabler här
 
-        public L33tt4rd() //Skriv samma namn här
+        public ColouredPlayer() //Skriv samma namn här
         {
-            Name = "L33tt4rd"; //Skriv in samma namn här
+            Name = "ColouredPlayer"; //Skriv in samma namn här
         }
 
         public override bool Knacka(int round) //Returnerar true om spelaren skall knacka, annars false
@@ -30,7 +30,7 @@ namespace TrettioEtt
 
         public override bool TaUppKort(Card card) // Returnerar true om spelaren skall ta upp korten på skräphögen (card), annars false för att dra kort från leken.
         {
-            if (card.Value == 11 || (card.Value == 8 && card.Suit == BestSuit))
+            if (card.Value == 11 || (card.Value >= 8 && card.Suit == BestSuit))
             {
                 return true;
             }
@@ -38,7 +38,7 @@ namespace TrettioEtt
             {
                 return false;
             }
-
+            
         }
 
         public override Card KastaKort()  // Returnerar det kort som skall kastas av de fyra som finns på handen
@@ -47,7 +47,7 @@ namespace TrettioEtt
             Card worstCard = Hand.First();
             for (int i = 1; i < Hand.Count; i++)
             {
-                if (CardValue(Hand[i]) < CardValue(worstCard) && worstCard.Value != 11 )
+                if (CardValue(Hand[i]) < CardValue(worstCard))
                 {
                     worstCard = Hand[i];
                 }
@@ -71,7 +71,7 @@ namespace TrettioEtt
 
             if (card.Suit == BestSuit)
             {
-                cardValue += 5;
+                cardValue += 50;
             }
             return cardValue;
         }

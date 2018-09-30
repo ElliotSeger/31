@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TrettioEtt.Players;
 
 namespace TrettioEtt
 {
@@ -18,12 +19,14 @@ namespace TrettioEtt
             players.Add(new L33tt4rd());
             players.Add(new BasicPlayer());
             players.Add(new Enemy());
+            players.Add(new ColouredPlayer());
+            players.Add(new Knack2());
 
             int[] p = new int[2];
             Console.WriteLine("Vilka två spelare skall mötas?");
             for (int i = 0; i < players.Count; i++)
             {
-                Console.WriteLine(i + ": {0}", players[i].Name);
+                Console.WriteLine($"{i + 1}: {players[i].Name}");
             }
 
             for (int i = 0; i < 2; i++)
@@ -34,9 +37,10 @@ namespace TrettioEtt
                     {
                         Console.WriteLine("Felaktig symbol. Du måste ange ett numeriskt värde...");
                     }
+                    p[i]--;
                     if (p[i] >= players.Count)
                     {
-                        Console.WriteLine($"Ogiltig spelare angiven. Välj ett värde mellan 0 och {players.Count - 1}");
+                        Console.WriteLine($"Ogiltig spelare angiven. Välj ett värde mellan 1 och {players.Count}");
                     }
                 } while (p[i] >= players.Count);
             }
