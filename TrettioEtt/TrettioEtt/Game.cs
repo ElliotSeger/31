@@ -266,6 +266,7 @@ namespace TrettioEtt
                     }
                     if (Score(playerInTurn) > Score(playerNotInTurn))
                     {
+                        playerNotInTurn.enemyScore = Score(playerInTurn);
                         playerInTurn.SpelSlut(true);
                         playerNotInTurn.SpelSlut(false);
                         if (Printlevel > 0)
@@ -278,6 +279,7 @@ namespace TrettioEtt
                     }
                     else
                     {
+                        playerNotInTurn.enemyScore = Score(playerInTurn);
                         playerInTurn.SpelSlut(false);
                         playerNotInTurn.SpelSlut(true);
                         if (Printlevel > 0)

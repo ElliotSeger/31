@@ -6,10 +6,15 @@ using System.Threading.Tasks;
 
 namespace TrettioEtt.Players
 {
-
     class L33tt4rd : Player  // HuvudSpelaren
     {
+        List<int> enemyScoreList = new List<int>();
+        int numberOfGames = 0;
         //Lägg gärna till egna variabler här
+        public int EnemyScore()
+        {
+            return 0;
+        }
 
         public L33tt4rd() //Skriv samma namn här
         {
@@ -18,7 +23,16 @@ namespace TrettioEtt.Players
 
         public override bool Knacka(int round) //Returnerar true om spelaren skall knacka, annars false
         {
-            if (Game.Score(this) >= 21)
+            if (round < 3)
+            {
+                enemyScore = 0;
+            }
+
+            if (Game.Score(this) < AverageEnemyScore(enemyScoreList) && numberOfGames <= 500)
+            {
+                return false;
+            }
+            else if (Game.Score(this) >= AverageEnemyScore(enemyScoreList))
             {
                 return true;
             }
@@ -30,8 +44,18 @@ namespace TrettioEtt.Players
 
         public override bool TaUppKort(Card card) // Returnerar true om spelaren skall ta upp korten på skräphögen (card), annars false för att dra kort från leken.
         {
+            Card worstCard = Hand.FirstOrDefault();
+            for (int i = 1; i < Hand.Count; i++)
+            {
+                // Om kortet är ett ess eller medium poäng av bestSuit kastas det ej.
+                if (CardValue(Hand[i]) < CardValue(worstCard) && worstCard.Value != 11)
+                {
+                    worstCard = Hand[i];
+                }
+            }
+
             // Om kortet har värdet 9 eller högre av samma färg eller är ett ess plockas det upp
-            if (card.Value == 11 || (card.Value >= 8 && card.Suit == BestSuit))
+            if (card.Value == 11 || (CardValue(card) > CardValue(worstCard) && card.Value > 8) || (card.Value >= 8 && card.Suit == BestSuit))
             {
                 return true;
             }
@@ -39,7 +63,7 @@ namespace TrettioEtt.Players
             {
                 return false;
             }
-            
+
         }
 
         public override Card KastaKort()  // Returnerar det kort som skall kastas av de fyra som finns på handen
@@ -49,7 +73,7 @@ namespace TrettioEtt.Players
             for (int i = 1; i < Hand.Count; i++)
             {
                 // Om kortet är ett ess eller medium poäng av bestSuit kastas det ej.
-                if (CardValue(Hand[i]) < CardValue(worstCard) && worstCard.Value != 11 )
+                if (CardValue(Hand[i]) < CardValue(worstCard) && worstCard.Value != 11)
                 {
                     worstCard = Hand[i];
                 }
@@ -64,7 +88,12 @@ namespace TrettioEtt.Players
             {
                 Wongames++;
             }
+            if (enemyScore != 0)
+            {
+                enemyScoreList.Add(enemyScore);
+            }
 
+            numberOfGames++;
         }
 
         private int CardValue(Card card) // Hjälpmetod som kan användas för att värdera hur bra ett kort är
@@ -78,7 +107,20 @@ namespace TrettioEtt.Players
             return cardValue;
         }
 
+        static float AverageEnemyScore(List<int> score)
+        {
+            int antal = score.Count();
+            int summa = 0;
+            for (int i = 0; i < antal; i++)
+            {
+                summa += score[i];
+            }
+            if (antal == 0)
+            { antal++; }
+            int enemyScore = summa / antal;
+            return enemyScore;
+        }
+
         // Lägg gärna till egna hjälpmetoder här
     }
-
 }

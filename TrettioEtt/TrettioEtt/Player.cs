@@ -18,6 +18,7 @@ namespace TrettioEtt
         public int PrintPosition;
         public bool lastTurn; // True om motståndaren har knackat, annars false.
         public Card OpponentsLatestCard; // Det senaste kortet motståndaren tog. Null om kortet drogs från högen.
+        public int enemyScore;
 
         public abstract bool Knacka(int round);
         public abstract bool TaUppKort(Card card);
