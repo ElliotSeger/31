@@ -16,7 +16,7 @@ namespace TrettioEtt.Players
             Name = "Enemy"; //Skriv in samma namn här
         }
 
-        public override bool Knacka(int round) //Returnerar true om spelaren skall knacka, annars false
+        public override bool Knacka(int round, int cardsLeft) //Returnerar true om spelaren skall knacka, annars false
         {
             if (Game.Score(this) >= 21)
             {

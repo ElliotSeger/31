@@ -74,7 +74,7 @@ namespace TrettioEtt
 
             }
             otherPlayer.OpponentsLatestCard = null;
-            if (NbrOfRounds > 1 && player.Knacka(NbrOfRounds) && !Lastround)
+            if (NbrOfRounds > 1 && player.Knacka(NbrOfRounds, CardDeck.Count) && !Lastround)
             {
                 if (Printlevel > 1)
                 {

@@ -20,7 +20,7 @@ namespace TrettioEtt
         public Card OpponentsLatestCard; // Det senaste kortet motståndaren tog. Null om kortet drogs från högen.
         public int enemyScore;
 
-        public abstract bool Knacka(int round);
+        public abstract bool Knacka(int round, int cardsLeft);
         public abstract bool TaUppKort(Card card);
         public abstract Card KastaKort();
         public abstract void SpelSlut(bool wonTheGame);

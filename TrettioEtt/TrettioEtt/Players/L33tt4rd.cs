@@ -8,8 +8,7 @@ namespace TrettioEtt.Players
 {
     class L33tt4rd : Player  // HuvudSpelaren
     {
-        List<int> enemyScoreList = new List<int>();
-        int numberOfGames = 0;
+        
         //Lägg gärna till egna variabler här
         public int EnemyScore()
         {
@@ -21,25 +20,39 @@ namespace TrettioEtt.Players
             Name = "L33tt4rd"; //Skriv in samma namn här
         }
 
-        public override bool Knacka(int round) //Returnerar true om spelaren skall knacka, annars false
+        public override bool Knacka(int round, int cardsLeft) //Returnerar true om spelaren skall knacka, annars false
         {
-            if (round < 3)
+            if (cardsLeft > 40)
             {
-                enemyScore = 0;
+                if (Game.Score(this) > 20) return true;
+                else return false;
             }
-
-            if (Game.Score(this) < AverageEnemyScore(enemyScoreList) && numberOfGames <= 500)
+            else if(cardsLeft > 30)
             {
-                return false;
+                if (Game.Score(this) > 22) return true;
+                else return false;
             }
-            else if (Game.Score(this) >= AverageEnemyScore(enemyScoreList))
+            else if (cardsLeft > 20)
             {
-                return true;
+                if (Game.Score(this) > 24) return true;
+                else return false;
+            }
+            else if (cardsLeft > 10)
+            {
+                if (Game.Score(this) > 26) return true;
+                else return false;
+            }
+            else if (cardsLeft > 5)
+            {
+                if (Game.Score(this) > 28) return true;
+                else return false;
             }
             else
             {
-                return false;
+                if (Game.Score(this) > 30) return true;
+                else return false;
             }
+
         }
 
         public override bool TaUppKort(Card card) // Returnerar true om spelaren skall ta upp korten på skräphögen (card), annars false för att dra kort från leken.
@@ -88,12 +101,8 @@ namespace TrettioEtt.Players
             {
                 Wongames++;
             }
-            if (enemyScore != 0)
-            {
-                enemyScoreList.Add(enemyScore);
-            }
+            
 
-            numberOfGames++;
         }
 
         private int CardValue(Card card) // Hjälpmetod som kan användas för att värdera hur bra ett kort är
@@ -107,19 +116,7 @@ namespace TrettioEtt.Players
             return cardValue;
         }
 
-        static float AverageEnemyScore(List<int> score)
-        {
-            int antal = score.Count();
-            int summa = 0;
-            for (int i = 0; i < antal; i++)
-            {
-                summa += score[i];
-            }
-            if (antal == 0)
-            { antal++; }
-            int enemyScore = summa / antal;
-            return enemyScore;
-        }
+        
 
         // Lägg gärna till egna hjälpmetoder här
     }

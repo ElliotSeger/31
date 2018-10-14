@@ -14,7 +14,7 @@ namespace TrettioEtt.Players
             Name = "BasicPlayer";
         }
 
-        public override bool Knacka(int round)
+        public override bool Knacka(int round, int cardsLeft)
         {
             if (Game.Score(this) >= 30)
             {

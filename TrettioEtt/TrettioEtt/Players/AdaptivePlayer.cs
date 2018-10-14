@@ -7,18 +7,30 @@ using System.Threading.Tasks;
 namespace TrettioEtt.Players
 {
 
-    class Knack2 : Player  // Denna spelare knackar aldrig.
+    class AdaptivePlayer : Player  // Denna spelare är testfiende för att pröva idéer.
     {
+        List<int> enemyScoreList = new List<int>();
+        int numberOfGames = 0;
         //Lägg gärna till egna variabler här
 
-        public Knack2() //Skriv samma namn här
+        public AdaptivePlayer() //Skriv samma namn här
         {
-            Name = "Knack2"; //Skriv in samma namn här
+            Name = "AdaptivePlayer"; //Skriv in samma namn här
         }
 
         public override bool Knacka(int round, int cardsLeft) //Returnerar true om spelaren skall knacka, annars false
         {
-            if (Game.Score(this) >= 40)
+
+            if (round < 3)
+            {
+                enemyScore = 0;
+            }
+
+            if (Game.Score(this) < AverageEnemyScore(enemyScoreList))
+            {
+                return false;
+            }
+            else if (Game.Score(this) >= AverageEnemyScore(enemyScoreList))
             {
                 return true;
             }
@@ -38,7 +50,7 @@ namespace TrettioEtt.Players
             {
                 return false;
             }
-            
+
         }
 
         public override Card KastaKort()  // Returnerar det kort som skall kastas av de fyra som finns på handen
@@ -47,13 +59,12 @@ namespace TrettioEtt.Players
             Card worstCard = Hand.First();
             for (int i = 1; i < Hand.Count; i++)
             {
-                if (CardValue(Hand[i]) < CardValue(worstCard) && worstCard.Value != 11 )
+                if (Hand[i].Value < worstCard.Value) 
                 {
                     worstCard = Hand[i];
                 }
             }
             return worstCard;
-            //return Hand.OrderBy(c => c.Value).First();
         }
 
         public override void SpelSlut(bool wonTheGame) // Anropas när ett spel tar slut. Wongames++ får ej ändras!
@@ -62,7 +73,11 @@ namespace TrettioEtt.Players
             {
                 Wongames++;
             }
-
+            if (enemyScore != 0)
+            {
+                enemyScoreList.Add(enemyScore);
+            }
+            numberOfGames++;
         }
 
         private int CardValue(Card card) // Hjälpmetod som kan användas för att värdera hur bra ett kort är
@@ -71,11 +86,24 @@ namespace TrettioEtt.Players
 
             if (card.Suit == BestSuit)
             {
-                cardValue += 9;
+                cardValue += 5;
             }
             return cardValue;
         }
 
+        static float AverageEnemyScore(List<int> score)
+        {
+            int antal = score.Count();
+            int summa = 0;
+            for (int i = 0; i < antal; i++)
+            {
+                summa += score[i];
+            }
+            if (antal == 0)
+            { antal++; }
+            int enemyScore = summa / antal;
+            return enemyScore;
+        }
         // Lägg gärna till egna hjälpmetoder här
     }
 
