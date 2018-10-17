@@ -25,7 +25,7 @@ namespace TrettioEtt
 
         }
 
-        public void initialize()
+        public void Initialize()
         {
             Lastround = false;
             Cardnumber = -1;
@@ -52,7 +52,7 @@ namespace TrettioEtt
             Discard(DrawCard());
         }
 
-        public void printHand(Player player)
+        public void PrintHand(Player player)
         {
             Console.SetCursorPosition(0, player.PrintPosition);
             Console.WriteLine(player.Name + " har ");
@@ -63,11 +63,11 @@ namespace TrettioEtt
             }
         }
 
-        private int playARound(Player player, Player otherPlayer)
+        private int PlayARound(Player player, Player otherPlayer)
         {
             if (Printlevel > 1)
             {
-                printHand(player);
+                PrintHand(player);
                 Console.SetCursorPosition(4, 6);
                 Console.Write("På skräphögen ligger ");
                 DiscardPile.Last().PrintCard();
@@ -117,7 +117,7 @@ namespace TrettioEtt
                 Console.Write("       Tryck ENTER");
                 Console.ReadLine();
                 Console.Clear();
-                printHand(player);
+                PrintHand(player);
 
             }
 
@@ -228,11 +228,11 @@ namespace TrettioEtt
             while (Cardnumber < 51 && NbrOfRounds < 100)
             {
                 NbrOfRounds++;
-                int result = playARound(playerInTurn, playerNotInTurn);
+                int result = PlayARound(playerInTurn, playerNotInTurn);
                 if (result == 31)
                 {
                     if (Printlevel > 1)
-                        printHand(playerNotInTurn);
+                        PrintHand(playerNotInTurn);
 
                     playerInTurn.SpelSlut(true);
                     playerNotInTurn.SpelSlut(false);
@@ -248,12 +248,12 @@ namespace TrettioEtt
                 {
                     Lastround = true;
                     playerNotInTurn.lastTurn = true;
-                    playARound(playerNotInTurn, playerInTurn);
+                    PlayARound(playerNotInTurn, playerInTurn);
                     playerNotInTurn.lastTurn = false;
                     if (Printlevel > 1)
                     {
-                        printHand(playerInTurn);
-                        printHand(playerNotInTurn);
+                        PrintHand(playerInTurn);
+                        PrintHand(playerNotInTurn);
                     }
 
 
@@ -339,11 +339,11 @@ namespace TrettioEtt
         {
             for (int i = 0; i < 200; i++)
             {
-                switchCards();
+                SwitchCards();
             }
         }
 
-        private void switchCards()
+        private void SwitchCards()
         {
             int card1 = RNG.Next(CardDeck.Count);
             int card2 = RNG.Next(CardDeck.Count);

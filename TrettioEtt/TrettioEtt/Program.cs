@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -12,25 +13,24 @@ namespace TrettioEtt
     {
         static void Main(string[] args)
         {
-
-            IEnumerable<Type> playerTypes = Assembly.GetAssembly(typeof(Player)).GetTypes().Where(theType => theType.IsSubclassOf(typeof(Player))); // går igenom programmet och skapar en lista av alla arvingar till player.
-
-            Console.WindowWidth = 120;
+            List<Player> players = new List<Player>();
             Game game = new Game();
 
-            List<Player> players = new List<Player>();
+            IEnumerable<Type> playerTypes = Assembly.GetAssembly(typeof(Player)).GetTypes().Where(theType => theType.IsSubclassOf(typeof(Player))); // går igenom programmet och skapar en lista av alla arvingar till player.
             foreach (var pt in playerTypes)
             {
                 players.Add((Player)Activator.CreateInstance(pt));
             }
 
-            int[] p = new int[2];
+            Console.WindowWidth = 120;
             Console.WriteLine("Vilka två spelare skall mötas?");
+
             for (int i = 0; i < players.Count; i++)
             {
                 Console.WriteLine($"{i + 1}: {players[i].Name}");
             }
 
+            int[] p = new int[2];
             for (int i = 0; i < 2; i++)
             {
                 do
@@ -64,7 +64,7 @@ namespace TrettioEtt
                 game.Printlevel = 2;
             else
                 game.Printlevel = 0;
-            game.initialize();
+            game.Initialize();
             game.PlayAGame(true);
             Console.Clear();
             bool player1starts = true;
@@ -73,7 +73,7 @@ namespace TrettioEtt
             {
                 game.Printlevel = 0;
                 player1starts = !player1starts;
-                game.initialize();
+                game.Initialize();
                 game.PlayAGame(player1starts);
 
                 Display(player1, player2, numberOfGames);

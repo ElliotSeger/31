@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace TrettioEtt.Players
 {
-
+    /// <summary>
+    /// 
+    /// </summary>
     class AdaptivePlayer : Player  // Denna spelare är testfiende för att pröva idéer.
     {
         List<int> enemyScoreList = new List<int>();
@@ -18,6 +20,16 @@ namespace TrettioEtt.Players
             Name = "AdaptivePlayer"; //Skriv in samma namn här
         }
 
+        /// <summary>
+        /// Bestämmer om spelaren ska knacka när den kallas.
+        /// </summary>
+        /// <param name="round">
+        /// Mängden rundor som har gått.
+        /// </param>
+        /// <param name="cardsLeft">
+        /// Mängden kort kvar i kortleken.
+        /// </param>
+        /// <returns></returns>
         public override bool Knacka(int round, int cardsLeft) //Returnerar true om spelaren skall knacka, annars false
         {
 
@@ -26,6 +38,7 @@ namespace TrettioEtt.Players
                 enemyScore = 0;
             }
 
+            // Om medelvärdet av fiendens score är större än spelarens score knackar den ej och vice versa.
             if (Game.Score(this) < AverageEnemyScore(enemyScoreList))
             {
                 return false;
@@ -75,6 +88,7 @@ namespace TrettioEtt.Players
             }
             if (enemyScore != 0)
             {
+                // när SpelSlut kallas läggs fiendens score till i enemyScoreList vilket är en lista av int-variabler
                 enemyScoreList.Add(enemyScore);
             }
             numberOfGames++;
@@ -83,7 +97,7 @@ namespace TrettioEtt.Players
         private int CardValue(Card card) // Hjälpmetod som kan användas för att värdera hur bra ett kort är
         {
             int cardValue = card.Value;
-
+            // Om ett kort har samma suit som BestSuit ökas dens returnerade värde med 5.
             if (card.Suit == BestSuit)
             {
                 cardValue += 5;
@@ -91,6 +105,13 @@ namespace TrettioEtt.Players
             return cardValue;
         }
 
+        /// <summary>
+        /// I denna metod skickas det in en lista an int-variabler motsvarande motståndarens resultat, sedan returnerar den medelvärdet.
+        /// </summary>
+        /// <param name="score">
+        /// En lista av int-variabler som metoden räknar ut medelvärdet på.
+        /// </param>
+        /// <returns></returns>
         static float AverageEnemyScore(List<int> score)
         {
             int antal = score.Count();

@@ -20,8 +20,21 @@ namespace TrettioEtt.Players
             Name = "L33tt4rd"; //Skriv in samma namn här
         }
 
-        public override bool Knacka(int round, int cardsLeft) //Returnerar true om spelaren skall knacka, annars false
+        /// <summary>
+        /// Returnerar true om spelaren skall knacka, annars false.
+        /// </summary>
+        /// <param name="round">
+        /// Mängden rundor som gått i ett spel.
+        /// </param>
+        /// <param name="cardsLeft">
+        /// Hur många kort som finns kvar i kortleken.
+        /// </param>
+        /// <returns>
+        /// Returnerar om den ska knacka eller inte.
+        /// </returns>
+        public override bool Knacka(int round, int cardsLeft) 
         {
+            // kollar hur många kort som är kvar och anpassar knackningsbenägenheten.
             if (cardsLeft > 40)
             {
                 if (Game.Score(this) > 20) return true;
@@ -52,7 +65,6 @@ namespace TrettioEtt.Players
                 if (Game.Score(this) > 30) return true;
                 else return false;
             }
-
         }
 
         public override bool TaUppKort(Card card) // Returnerar true om spelaren skall ta upp korten på skräphögen (card), annars false för att dra kort från leken.
@@ -101,10 +113,15 @@ namespace TrettioEtt.Players
             {
                 Wongames++;
             }
-            
-
         }
 
+        /// <summary>
+        /// Används för att beräkna värdet av ett kort.
+        /// </summary>
+        /// <param name="card">
+        /// Kortet vars värde beräknas.
+        /// </param>
+        /// <returns></returns>
         private int CardValue(Card card) // Hjälpmetod som kan användas för att värdera hur bra ett kort är
         {
             int cardValue = card.Value;
